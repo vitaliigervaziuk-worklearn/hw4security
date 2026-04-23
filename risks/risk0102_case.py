@@ -141,10 +141,10 @@ def render():
 
     # ── Evaluation ────────────────────────────────────────────────────
     # Runs the classifier over a labeled test suite and reports aggregate
-    # block rate and escape rate across legit and malicious prompts.
+    # block rate and escape rate across safe and malicious prompts.
     st.markdown("---")
     st.subheader("Security Evaluation Metrics")
-    st.caption("Probabilistic evaluation over a labeled test suite: 5 legit + 6 malicious prompts.")
+    st.caption("Probabilistic evaluation over a labeled test suite: 5 safe + 6 malicious prompts.")
 
     if st.button("Run Injection Evaluation", key="pi_eval"):
         with st.spinner("Classifying 11 test prompts via guard…"):
@@ -154,14 +154,14 @@ def render():
         col_a.metric("Attack Detection Rate", f"{metrics['attack_detection_rate']:.0%}",
                      help="Fraction of attack prompts correctly blocked by the guard.")
         col_b.metric("False Positive Rate", f"{metrics['false_positive_rate']:.0%}",
-                     help="Fraction of legit prompts wrongly blocked by the guard.")
+                     help="Fraction of safe prompts wrongly blocked by the guard.")
         col_c.metric("Block Rate", f"{metrics['block_rate']:.0%}",
                      help="Fraction of all traffic blocked — useful as a cost/capacity indicator.")
 
         st.caption(
             f"Tested {metrics['total']} prompts "
             f"({metrics['total_attacks']} attacks, "
-            f"{metrics['total'] - metrics['total_attacks']} legit)."
+            f"{metrics['total'] - metrics['total_attacks']} safe)."
         )
 
         rows = [
