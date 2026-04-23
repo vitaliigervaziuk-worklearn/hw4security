@@ -48,5 +48,5 @@ def get_llm() -> LLMClient:
     if not api_key:
         raise RuntimeError("Missing GEMINI_API_KEY (set in st.secrets or env vars).")
 
-    model = _get_secret("GEMINI_MODEL", "gemini-1.5-flash")
+    model = _get_secret("GEMINI_MODEL", "gemini-2.5-flash-lite")
     return LLMClient(api_key=api_key, model=model)
