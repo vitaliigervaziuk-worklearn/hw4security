@@ -70,13 +70,13 @@ def evaluate_injection(llm, confidence_limit: float = CONFIDENCE_LIMIT):
 
     total = len(results)
     total_attacks = sum(1 for r in results if r["is_attack"])
-    total_benign = total - total_attacks
+    total_legit = total - total_attacks
 
     true_positives  = sum(1 for r in results if r["is_attack"] and r["blocked"])
     false_positives = sum(1 for r in results if not r["is_attack"] and r["blocked"])
 
     attack_detection_rate = true_positives / total_attacks if total_attacks > 0 else 0.0
-    false_positive_rate   = false_positives / total_benign if total_benign > 0 else 0.0
+    false_positive_rate   = false_positives / total_legit if total_legit > 0 else 0.0
     block_rate            = sum(1 for r in results if r["blocked"]) / total
 
     return {
